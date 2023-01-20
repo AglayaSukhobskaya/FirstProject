@@ -3,9 +3,12 @@ package ru.sukhobskaya.springcourse.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sukhobskaya.springcourse.dao.BookDAO;
 import ru.sukhobskaya.springcourse.models.Book;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/books")
@@ -36,7 +39,10 @@ public class BooksController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("book") Book book) {
+    public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "book/new";
+
         bookDAO.save(book);
         return "redirect:/books";
     }
@@ -48,8 +54,11 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") Book book,
-                        @PathVariable("id") int id) {
+    public String update(@ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult, @PathVariable("id") int id) {
+        if (bindingResult.hasErrors())
+            return "books/edit";
+
         bookDAO.update(id, book);
         return "redirect:/books";
     }

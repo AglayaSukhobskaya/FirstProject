@@ -6,12 +6,6 @@
 </head>
 <body>
 <p th:text="${person.getName() + ', ' + person.getYear()}">VALUE</p>
-<div th:if="${person.getPersonsBooks().size() == 0}">The person hasn't taken any book yet.</div>
-<div th:unless="${person.getPersonsBooks().size() > 0}">
-    <div th:each="book : ${person.getPersonsBooks()}">
-        <a th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
-    </div>
-</div>
 
 <hr/>
 <form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
