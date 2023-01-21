@@ -1,0 +1,3 @@
+/src/main/resources/database.properties
+/target/classes/database.properties
+/target/spring-mvc-app1/WEB-INF/classes/database.properties
