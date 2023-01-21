@@ -41,7 +41,7 @@ public class BooksController {
     @PostMapping()
     public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "book/new";
+            return "books/new";
 
         bookDAO.save(book);
         return "redirect:/books";
