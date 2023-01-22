@@ -1,9 +1,6 @@
 package ru.sukhobskaya.springcourse.models;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Book {
     private int id;
@@ -12,6 +9,7 @@ public class Book {
     private String name;
     @NotEmpty(message = "Author name should not be empty")
     @Size(min = 2, max = 30, message = "Author name should be between 2 and 30 characters")
+    @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+", message = "Author name should be in this format: First name Last name")
     private String author;
     @Min(value = 900, message = "Year should not be less than 900")
     @Max(value = 2023, message = "Year should not be more than 2023")
@@ -57,4 +55,5 @@ public class Book {
     public void setYear(int year) {
         this.year = year;
     }
+
 }
