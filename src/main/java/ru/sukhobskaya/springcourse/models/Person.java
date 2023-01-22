@@ -1,14 +1,12 @@
 package ru.sukhobskaya.springcourse.models;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Person {
     private int id;
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+", message = "Your name should be in this format: First name Last name")
     private String name;
     @Min(value = 1000, message = "Year should not be less than 1000")
     @Max(value = 2023, message = "Year should not be more than 2023")

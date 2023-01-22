@@ -7,6 +7,26 @@
 <body>
 <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
 
+<form th:if="${bookOwnerId == 0}" th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getId()})}">
+    <div>This book is available. To whom to assign?</div>
+    <label for="person">Select a person</label>
+    <select th:object="${person}" th:field="*{id}" id="person">
+        <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+    </select>
+
+    <input type="submit" value="Assign the book"/>
+</form>
+
+<form th:if="${bookOwnerId > 0}" th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}">
+    <label for="owner">This book is now at:</label>
+    <p th:text="${owner.getName()}" id="owner">Name of owner<p/>
+
+    <input type="submit" value="Release the book"/>
+</form>
+
+<br/>
+<hr/>
+
 <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
     <input type="submit" value="Edit"/>
 </form>
