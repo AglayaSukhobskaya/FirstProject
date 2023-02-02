@@ -24,7 +24,7 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
-        if (personDAO.show(person.getName()).isPresent()) {
+        if (personDAO.show(person.getId()) != null) {
             errors.rejectValue("name", "", "Person with this name already exist");
         }
     }

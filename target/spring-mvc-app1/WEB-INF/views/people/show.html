@@ -7,13 +7,13 @@
 <body>
 <p th:text="${person.getName() + ', ' + person.getYear()}">VALUE</p>
 
-<div th:if="${books.size() == 0}">
+<div th:if="${person.getBooks().size() == 0}">
     The person has not yet taken a single book.
 </div>
-<div th:if="${books.size() > 0}">
+<div th:if="${person.getBooks().size() > 0}">
     <hr/>
     <p>Books:</p>
-    <div th:each="book : ${books}">
+    <div th:each="book : ${person.getBooks()}">
         <a th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
     </div>
 </div>
