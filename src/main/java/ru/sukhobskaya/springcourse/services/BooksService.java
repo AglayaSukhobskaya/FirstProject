@@ -1,6 +1,8 @@
 package ru.sukhobskaya.springcourse.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sukhobskaya.springcourse.models.Book;
@@ -23,8 +25,16 @@ public class BooksService {
         this.peopleRepository = peopleRepository;
     }
 
-    public List<Book> findAll() {
-        return booksRepository.findAll();
+    public List<Book> findAll(Integer page, Integer booksPerPage, boolean sort_by_year) {
+        if (page == null && booksPerPage == null) {
+            if (sort_by_year)
+                return booksRepository.findAll(Sort.by("year"));
+            else return booksRepository.findAll();
+        } else {
+            if (sort_by_year)
+                return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
+            else return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
+        }
     }
 
     public Book findOne(int id) {
