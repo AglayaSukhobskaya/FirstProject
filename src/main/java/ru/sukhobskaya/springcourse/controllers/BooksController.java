@@ -88,4 +88,11 @@ public class BooksController {
         booksService.releaseBook(id);
         return "redirect:/books/{id}";
     }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "term", required = false) String startingWith,
+                         Model model) {
+        model.addAttribute("books", booksService.search(startingWith));
+        return "books/search";
+    }
 }

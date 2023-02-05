@@ -10,6 +10,7 @@ import ru.sukhobskaya.springcourse.models.Person;
 import ru.sukhobskaya.springcourse.repositories.BooksRepository;
 import ru.sukhobskaya.springcourse.repositories.PeopleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,5 +74,12 @@ public class BooksService {
         if (book.isPresent()) {
             book.get().setOwner(null);
         }
+    }
+
+    public List<Book> search(String startingWith) {
+        if (startingWith == null)
+            return null;
+        else
+            return booksRepository.findByNameStartingWith(startingWith);
     }
 }
