@@ -23,3 +23,7 @@ Functional:
 the book is available."
 7. On the page of the book, if the book is taken by a person, next to his name there is a button "Release the book". This button is pressed by the librarian when the reader returns this book back to the library. After pressing this button the book again becomes loose and disappears from the list of the person's books.
 8. On the page of the book, if the book is free, there is a drop-down list (<select>) with all people and the "Assign the book" button. This button is pressed by the librarian when the reader wants to take this book home. After pressing this button, the book must begin to belong to the selected person and must appear in his list books.
+9. Sorting books by year using the key "sort_by_year=true"
+10. Paganization for books using the keys "page" (requesting page) and "books_per_page" (number of books displayed per page)
+11. Book search page by partial title
+12. Automatic book overdue check (more than 10 days)
