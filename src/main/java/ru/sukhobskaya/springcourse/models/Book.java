@@ -2,6 +2,7 @@ package ru.sukhobskaya.springcourse.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Book")
@@ -10,7 +11,7 @@ public class Book {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty (message = "Name should not be empty")
+    @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 100, message = "Name should be between 2 and 100 characters")
     @Column(name = "name")
     private String name;
@@ -28,7 +29,15 @@ public class Book {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
 
-    public Book() {}
+    @Column(name = "assign_owner_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date assignOwnerTime;
+
+    @Transient
+    private boolean overdue;
+
+    public Book() {
+    }
 
     public Book(String name, String author, int year) {
         this.name = name;
@@ -75,4 +84,21 @@ public class Book {
     public void setOwner(Person owner) {
         this.owner = owner;
     }
+
+    public Date getAssignOwnerTime() {
+        return assignOwnerTime;
+    }
+
+    public void setAssignOwnerTime(Date assignOwnerTime) {
+        this.assignOwnerTime = assignOwnerTime;
+    }
+
+    public boolean isOverdue() {
+        if (assignOwnerTime == null)
+            overdue = false;
+        else
+            overdue = (new Date().getTime() - assignOwnerTime.getTime()) > 864000000;
+        return overdue;
+    }
+
 }

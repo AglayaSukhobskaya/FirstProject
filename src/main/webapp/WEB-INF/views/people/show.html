@@ -14,7 +14,8 @@
     <hr/>
     <p>Books:</p>
     <div th:each="book : ${person.getBooks()}">
-        <a th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
+        <a th:style="${book.isOverdue()}? 'color: red;'"
+           th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
     </div>
 </div>
 

@@ -10,7 +10,7 @@ import ru.sukhobskaya.springcourse.models.Person;
 import ru.sukhobskaya.springcourse.repositories.BooksRepository;
 import ru.sukhobskaya.springcourse.repositories.PeopleRepository;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +64,7 @@ public class BooksService {
         Optional<Book> book = booksRepository.findById(book_id);
         Optional<Person> person = peopleRepository.findById(person_id);
         if (book.isPresent() && person.isPresent()) {
+            book.get().setAssignOwnerTime(new Date());
             book.get().setOwner(person.get());
         }
     }
@@ -72,6 +73,7 @@ public class BooksService {
     public void releaseBook(int id) {
         Optional<Book> book = booksRepository.findById(id);
         if (book.isPresent()) {
+            book.get().setAssignOwnerTime(null);
             book.get().setOwner(null);
         }
     }
@@ -82,4 +84,5 @@ public class BooksService {
         else
             return booksRepository.findByNameStartingWith(startingWith);
     }
+
 }
