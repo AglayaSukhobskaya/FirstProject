@@ -1,4 +1,26 @@
-# Library
+# digital_library
+## Getting Started
+The following programs must be installed on your computer:
+ Java Development Kit (JDK);
+ development environment (IDE) such as Eclipse, IntelliJ IDEA or another;
+ Apache Maven;
+ PostgreSQL database.
+
+Clone this repository to your local computer:
+
+<code>git clone https://github.com/AglayaSukhobskaya/digital_library</code>
+
+Open the project in the development environment.
+Download all the necessary sources and documentation from Maven.
+
+Create a new PostgreSQL database and implement a connection to the service. All connection settings you can find in ***/resources/database.properties***.
+To create the necessary tables in the database and to get test data execute the SQL queries from file ***/resaurces/db.sql***.
+
+Now the application is ready to running.
+
+## Technology Stack
+Spring Framework / Spring MVC / Spring Data JPA / Hibernate / Maven / PostgreSQL / Thymeleaf
+
 
 TECHNICAL TASK
 
