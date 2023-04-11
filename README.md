@@ -10,7 +10,7 @@ The following programs must be installed on your computer:
  Java Development Kit (JDK);
  development environment (IDE) such as Eclipse, IntelliJ IDEA or another;
  Apache Maven;
- PostgreSQL database.
+ PostgreSQL database; Tomcat.
 
 Clone this repository to your local computer:
 
@@ -22,7 +22,18 @@ Download all the necessary sources and documentation from Maven.
 Create a new PostgreSQL database and implement a connection to the service. All connection settings you can find in ***/resources/database.properties***.
 To create the necessary tables in the database and to get test data execute the SQL queries from file ***/resaurces/db.sql***.
 
+Add Tomcat run cofiguration with the artefact to deploy **"library:war exploded"**. Delete any information from the field **"Application context"**.
+
 Now the application is ready to running.
+
+
+## Running the application
+Run the application using Tomcat configuration.
+Open any brouser you have and enter one of the following addresses:
+
+***http://localhost:8080/books/*** - access to book list
+
+***http://localhost:8080/people/*** - access to person list
 
 ## Technology Stack
 Spring Framework / Spring MVC / Spring Data JPA / Hibernate / Maven / PostgreSQL / Thymeleaf
