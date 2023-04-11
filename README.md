@@ -1,29 +1,28 @@
-# Library
+# digital_library
+Web-service that transfers the library to electronic accounting of books.
 
-TECHNICAL TASK
+Librarians have the ability to register new readers, lend them books, and release books (after the reader returns the book back to the library). Also, librarians can add new books to the system, edit existing ones or delete them.
 
-The local library wants to switch to digital book counting. It is needed to implement a web-application. Librarians should be able to register readers,
-lend books to them and release books  (after the reader returns the book to the library).
+Readers can access all available books sorted by release year. They can also search for the desired book by the initial letters of the book name.
+It also takes into account the delay of the book by the reader. If more than 10 days have passed since the book was accepted by the reader, it will automatically be highlighted in red on the user's page.
+## Getting Started
+The following programs must be installed on your computer:
+ Java Development Kit (JDK);
+ development environment (IDE) such as Eclipse, IntelliJ IDEA or another;
+ Apache Maven;
+ PostgreSQL database.
 
-Entities:
-Person (fields: name (unique), year of birth)
-Book (fields: name, author, year)
+Clone this repository to your local computer:
 
-One-to-many relationship between entities. A person can have many books. A book can only belong to one person.
+<code>git clone https://github.com/AglayaSukhobskaya/digital_library</code>
 
-SQL code for creating tables is in /resources/db.sql
+Open the project in the development environment.
+Download all the necessary sources and documentation from Maven.
 
-Functional:
-1. Pages for adding, editing and deleting a person
-2. Pages for adding, editing and deleting a book
-3. All people list page (people are clickable - redirect to the person page)
-4. All books list page (books are clickable - redirect to the book page)
-5. Page of a person showing the values of fields of the person and the list of books he has borrowed. If the person has not taken any book, the text: "The person has not yet taken a single book."
-6. Page of a book showing the values of fields of the book and the person's name, who took this book. If this book has not been taken by anyone, the text "This
-the book is available."
-7. On the page of the book, if the book is taken by a person, next to his name there is a button "Release the book". This button is pressed by the librarian when the reader returns this book back to the library. After pressing this button the book again becomes loose and disappears from the list of the person's books.
-8. On the page of the book, if the book is free, there is a drop-down list (<select>) with all people and the "Assign the book" button. This button is pressed by the librarian when the reader wants to take this book home. After pressing this button, the book must begin to belong to the selected person and must appear in his list books.
-9. Sorting books by year using the key "sort_by_year=true"
-10. Paganization for books using the keys "page" (requesting page) and "books_per_page" (number of books displayed per page)
-11. Book search page by partial title
-12. Automatic book overdue check (more than 10 days)
+Create a new PostgreSQL database and implement a connection to the service. All connection settings you can find in ***/resources/database.properties***.
+To create the necessary tables in the database and to get test data execute the SQL queries from file ***/resaurces/db.sql***.
+
+Now the application is ready to running.
+
+## Technology Stack
+Spring Framework / Spring MVC / Spring Data JPA / Hibernate / Maven / PostgreSQL / Thymeleaf
