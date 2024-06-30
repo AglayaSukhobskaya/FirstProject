@@ -1,39 +1,37 @@
-package ru.sukhobskaya.springcourse.controllers;
+package ru.sukhobskaya.springcourse.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.sukhobskaya.springcourse.models.Book;
-import ru.sukhobskaya.springcourse.models.Person;
-import ru.sukhobskaya.springcourse.services.PeopleService;
+import ru.sukhobskaya.springcourse.model.Book;
+import ru.sukhobskaya.springcourse.model.Person;
+import ru.sukhobskaya.springcourse.service.PersonService;
 import ru.sukhobskaya.springcourse.util.PersonValidator;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
-public class PeopleController {
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class PersonController {
 
-    private final PeopleService peopleService;
-    private final PersonValidator personValidator;
-
-    @Autowired
-    public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
-        this.peopleService = peopleService;
-        this.personValidator = personValidator;
-    }
+    PersonService personService;
+    PersonValidator personValidator;
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", peopleService.findAll());
+        model.addAttribute("people", personService.findAll());
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model, @ModelAttribute("book") Book book) {
-        model.addAttribute("person", peopleService.findOne(id));
+        model.addAttribute("person", personService.findById(id));
         return "people/show";
     }
 
@@ -46,16 +44,17 @@ public class PeopleController {
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         personValidator.validate(person, bindingResult);
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "people/new";
+        }
 
-        peopleService.save(person);
+        personService.save(person);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", peopleService.findOne(id));
+        model.addAttribute("person", personService.findById(id));
         return "people/edit";
     }
 
@@ -64,16 +63,17 @@ public class PeopleController {
                          BindingResult bindingResult, @PathVariable("id") int id) {
 //        personValidator.validate(person, bindingResult);
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "people/edit";
+        }
 
-        peopleService.update(id, person);
+        personService.update(id, person);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        peopleService.delete(id);
+        personService.delete(id);
         return "redirect:/people";
     }
 }
