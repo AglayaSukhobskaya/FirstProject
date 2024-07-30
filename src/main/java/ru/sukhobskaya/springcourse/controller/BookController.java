@@ -1,5 +1,6 @@
 package ru.sukhobskaya.springcourse.controller;
 
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -11,8 +12,6 @@ import ru.sukhobskaya.springcourse.model.Book;
 import ru.sukhobskaya.springcourse.model.Person;
 import ru.sukhobskaya.springcourse.service.BookService;
 import ru.sukhobskaya.springcourse.service.PersonService;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/books")

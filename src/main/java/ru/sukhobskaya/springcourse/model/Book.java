@@ -1,11 +1,11 @@
 package ru.sukhobskaya.springcourse.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
@@ -29,7 +29,7 @@ public class Book {
     @Size(max = 100, message = "Too long author name. It should be less then 100 characters")
     @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+", message = "Author name should be in this format: \"Firstname Lastname\"")
     @Column(name = "author")
-    String author;
+    private String author;
 
     @NotNull(message = "Year should not be empty")
     @Min(value = 1000, message = "Year should not be less than 1000")

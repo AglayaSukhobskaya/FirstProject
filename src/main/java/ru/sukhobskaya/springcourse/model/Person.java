@@ -1,10 +1,10 @@
 package ru.sukhobskaya.springcourse.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.util.List;
 
 @Data

@@ -3,7 +3,6 @@ package ru.sukhobskaya.springcourse.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.var;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import ru.sukhobskaya.springcourse.model.Person;

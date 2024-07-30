@@ -1,5 +1,6 @@
 package ru.sukhobskaya.springcourse.controller;
 
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.sukhobskaya.springcourse.model.Book;
 import ru.sukhobskaya.springcourse.model.Person;
 import ru.sukhobskaya.springcourse.service.PersonService;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/people")
