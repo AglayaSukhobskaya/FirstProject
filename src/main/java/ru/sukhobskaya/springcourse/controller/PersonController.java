@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.sukhobskaya.springcourse.model.Book;
 import ru.sukhobskaya.springcourse.model.Person;
 import ru.sukhobskaya.springcourse.service.PersonService;
-import ru.sukhobskaya.springcourse.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -19,9 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PersonController {
-
     PersonService personService;
-    PersonValidator personValidator;
 
     @GetMapping()
     public String index(Model model) {
@@ -30,39 +27,35 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("book") Book book) {
+    public String show(@PathVariable("id") Integer id, @ModelAttribute("book") Book book, Model model) {
         model.addAttribute("person", personService.findById(id));
         return "people/show";
     }
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("person") Person person) {
+    public String newPersonPage(@ModelAttribute("person") Person person) {
         return "people/new";
     }
 
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
 
-        personService.save(person);
+        personService.create(person);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String editPersonPage(Model model, @PathVariable("id") Integer id) {
         model.addAttribute("person", personService.findById(id));
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person,
-                         BindingResult bindingResult, @PathVariable("id") int id) {
-//        personValidator.validate(person, bindingResult);
-
+    public String update(@ModelAttribute("person") @Valid Person person, @PathVariable("id") Integer id,
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "people/edit";
         }

@@ -3,6 +3,7 @@ package ru.sukhobskaya.springcourse.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.var;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import ru.sukhobskaya.springcourse.model.Person;
@@ -20,20 +21,22 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public Person findById(int id) {
+    public Person findById(Integer id) {
         return personRepository.findById(id).orElse(null);
     }
 
-    public void save(Person person) {
-        personRepository.save(person);
+    public void create(Person person) {
+        personRepository.saveAndFlush(person);
     }
 
-    public void update(int id, @NotNull Person updatedPerson) {
-        updatedPerson.setId(id);
-        personRepository.save(updatedPerson);
+    public void update(Integer id, @NotNull Person updatedPerson) {
+        var personToUpdate = findById(id);
+        personToUpdate.setName(updatedPerson.getName());
+        personToUpdate.setYear(updatedPerson.getYear());
+        personRepository.saveAndFlush(personToUpdate);
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
         personRepository.deleteById(id);
     }
 }
