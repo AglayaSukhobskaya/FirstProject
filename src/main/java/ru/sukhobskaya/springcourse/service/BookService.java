@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import ru.sukhobskaya.springcourse.model.Book;
 import ru.sukhobskaya.springcourse.repository.BookRepository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -22,63 +23,56 @@ public class BookService {
     BookRepository bookRepository;
     PersonService personService;
 
-    public List<Book> findAll(Integer page, Integer booksPerPage, boolean sort_by_year) {
-        List<Book> bookList;
-        if (Objects.isNull(page) && Objects.isNull(booksPerPage)) {
-            if (sort_by_year) {
-                bookList = bookRepository.findAll(Sort.by("year"));
-            } else {
-                bookList = bookRepository.findAll();
-            }
-        } else {
-            if (sort_by_year) {
-                bookList = bookRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
-            } else {
-                bookList = bookRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
-            }
-        }
-        return bookList;
+    public List<Book> findAll(Integer page, Integer booksPerPage, Boolean sortByYear) {
+        return Objects.isNull(page) && Objects.isNull(booksPerPage) ?
+                Objects.nonNull(sortByYear) && sortByYear ?
+                        bookRepository.findAll(Sort.by("year")) :
+                        bookRepository.findAll() :
+                Objects.nonNull(sortByYear) && sortByYear ?
+                        bookRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent() :
+                        bookRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
     }
 
-    public Book findById(int id) {
+    public Book findById(Integer id) {
         return bookRepository.findById(id).orElse(null);
     }
 
-    public void save(Book book) {
+    public void create(Book book) {
         bookRepository.saveAndFlush(book);
     }
 
-    public void update(int id, @NotNull Book updatedBook) {
-        updatedBook.setId(id);
-        bookRepository.saveAndFlush(updatedBook);
+    public void update(Integer id, @NotNull Book updatedBook) {
+        var bookToUpdate = findById(id);
+        bookToUpdate.setName(updatedBook.getName());
+        bookToUpdate.setAuthor(updatedBook.getAuthor());
+        bookToUpdate.setYear(updatedBook.getYear());
+        bookRepository.saveAndFlush(bookToUpdate);
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
         bookRepository.deleteById(id);
     }
 
-    public void assignOwner(int bookId, int personId) {
+    public void takeBook(Integer bookId, Integer personId) {
         var book = findById(bookId);
         var person = personService.findById(personId);
         if (Objects.nonNull(book) && Objects.nonNull(person)) {
-            book.setAssignOwnerTime(new Date());
+            book.setTakeBookDate(LocalDate.now());
             book.setOwner(person);
         }
+        bookRepository.saveAndFlush(book);
     }
 
-    public void releaseBook(int id) {
+    public void returnBook(Integer id) {
         var book = findById(id);
         if (Objects.nonNull(book)) {
-            book.setAssignOwnerTime(null);
+            book.setTakeBookDate(null);
             book.setOwner(null);
         }
+        bookRepository.saveAndFlush(book);
     }
 
-    public List<Book> search(String startingWith) {
-        if (Objects.isNull(startingWith)) {
-            return null;
-        } else {
-            return bookRepository.findByNameStartingWith(startingWith);
-        }
+    public Object search(String startingWith) {
+        return bookRepository.findByNameStartingWith(startingWith);
     }
 }
