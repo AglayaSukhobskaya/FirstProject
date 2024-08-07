@@ -1,39 +1,38 @@
-# digital_library
+Digital Library API
+========
 Web-service that transfers the library to electronic accounting of books.
 
 Librarians have the ability to register new readers, lend them books, and release books (after the reader returns the book back to the library). Also, librarians can add new books to the system, edit existing ones or delete them.
 
 Readers can access all available books sorted by release year. They can also search for the desired book by the initial letters of the book name.
 It also takes into account the delay of the book by the reader. If more than 10 days have passed since the book was accepted by the reader, it will automatically be highlighted in red on the user's page.
-## Getting Started
-The following programs must be installed on your computer:
- Java Development Kit (JDK);
- development environment (IDE) such as Eclipse, IntelliJ IDEA or another;
- Apache Maven;
- PostgreSQL database; Tomcat.
 
-Clone this repository to your local computer:
+Running the application
+========
+System requirments: you must have docker and docker compose installed on your computer.
 
-<code>git clone https://github.com/AglayaSukhobskaya/digital_library</code>
+Open Terminal.
 
-Open the project in the development environment.
-Download all the necessary sources and documentation from Maven.
+Change the current working directory to the location where you want the cloned the project directory.
+ 
+Enter the following command to clone the project to the selected directory:
 
-Create a new PostgreSQL database and implement a connection to the service. All connection settings you can find in ***/resources/database.properties***.
-To create the necessary tables in the database and to get test data execute the SQL queries from file ***/resaurces/db.sql***.
+    git clone https://github.com/AglayaSukhobskaya/digital_library.git
 
-Add Tomcat run cofiguration with the artefact to deploy **"library:war exploded"**. Delete any information from the field **"Application context"**.
+Go to the project root directory 'digital_library'.
 
-Now the application is ready to running.
+Run the application with the following command:
 
+    sudo docker compose up -d
 
-## Running the application
-Run the application using Tomcat configuration.
-Open any brouser you have and enter one of the following addresses:
+Now the application is running.
 
-***http://localhost:8080/books/*** - access to book list
+Open one of these links in any brouser you have:
 
-***http://localhost:8080/people/*** - access to person list
+http://localhost:8080/books - list of books
 
-## Technology Stack
-Spring Framework / Spring MVC / Spring Data JPA / Hibernate / Maven / PostgreSQL / Thymeleaf
+http://localhost:8080/people - list of people
+
+Technology Stack
+========
+Java 17, Spring Boot 3.3.2, Maven, Spring MVC, Spring Data JPA, PostgreSQL, Thymeleaf
