@@ -1,6 +1,7 @@
 services:
   library_db:
     image: postgres
+    container_name: library_db
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -8,6 +9,8 @@ services:
       - POSTGRES_DB=library_db
     ports:
       - "127.0.0.1:5432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
   app:
     restart: always
     build: .
