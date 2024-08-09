@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.sukhobskaya.springcourse.model.Book;
 import ru.sukhobskaya.springcourse.model.Person;
 import ru.sukhobskaya.springcourse.service.PersonService;
+import ru.sukhobskaya.springcourse.util.PersonValidator;
 
 @Controller
 @RequestMapping("/people")
@@ -18,6 +19,7 @@ import ru.sukhobskaya.springcourse.service.PersonService;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PersonController {
     PersonService personService;
+    PersonValidator validator;
 
     @GetMapping()
     public String index(Model model) {
@@ -38,6 +40,7 @@ public class PersonController {
 
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        validator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -47,14 +50,15 @@ public class PersonController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editPersonPage(Model model, @PathVariable("id") Integer id) {
+    public String editPersonPage(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("person", personService.findById(id));
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person, @PathVariable("id") Integer id,
+    public String update(@PathVariable("id") Integer id, @ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
+        validator.validate(person, bindingResult);
         if (bindingResult.hasErrors()) {
             return "people/edit";
         }

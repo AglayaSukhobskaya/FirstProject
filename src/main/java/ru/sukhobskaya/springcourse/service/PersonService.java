@@ -24,6 +24,10 @@ public class PersonService {
         return personRepository.findById(id).orElse(null);
     }
 
+    public Person findByName(String name) {
+        return personRepository.findByName(name).orElse(null);
+    }
+
     public void create(Person person) {
         personRepository.saveAndFlush(person);
     }
@@ -37,5 +41,9 @@ public class PersonService {
 
     public void delete(Integer id) {
         personRepository.deleteById(id);
+    }
+
+    public boolean existsByName(String name) {
+        return  personRepository.existsByName(name);
     }
 }

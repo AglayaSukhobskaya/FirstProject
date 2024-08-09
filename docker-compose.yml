@@ -11,13 +11,13 @@ services:
       - "127.0.0.1:5432:5432"
     volumes:
       - ./db:/docker-entrypoint-initdb.d
-  app:
-    restart: always
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - library_db
-    environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://library_db:5432/library_db'
-      JAVA_OPTS: '-Xmx512m'
+#  app:
+#    restart: always
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - library_db
+#    environment:
+#      SPRING_DATASOURCE_URL: 'jdbc:postgresql://library_db:5432/library_db'
+#      JAVA_OPTS: '-Xmx512m'
