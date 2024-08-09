@@ -22,19 +22,19 @@ public class Book {
 
     @NotEmpty(message = "Name should not be empty")
     @Size(max = 100, message = "Too long name. It should be less then 100 characters")
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 100)
     String name;
 
     @NotEmpty(message = "Author name should not be empty")
     @Size(max = 100, message = "Too long author name. It should be less then 100 characters")
     @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+", message = "Author name should be in this format: \"Firstname Lastname\"")
-    @Column(name = "author")
+    @Column(name = "author", nullable = false, length = 100)
     private String author;
 
     @NotNull(message = "Year should not be empty")
     @Min(value = 1000, message = "Year should not be less than 1000")
     @Max(value = 2024, message = "Year should not be more than 2024")
-    @Column(name = "year")
+    @Column(name = "year", nullable = false)
     Integer year;
 
     @ManyToOne

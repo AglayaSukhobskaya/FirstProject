@@ -53,13 +53,13 @@ public class BookController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editBookPage(Model model, @PathVariable("id") Integer id) {
+    public String editBookPage(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("book", bookService.findById(id));
         return "books/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("book") @Valid Book book, @PathVariable("id") Integer id,
+    public String update(@PathVariable("id") Integer id, @ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "books/edit";
