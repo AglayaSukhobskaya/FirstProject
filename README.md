@@ -1,6 +1,6 @@
 Digital Library API
 ========
-A web application that simulates the work of an digital library.
+A web application that simulates the work of a digital library.
 
 The library contains a collection of books. You can get a list of all registered books or perform a simple CRUD operation with each of the books.
 
