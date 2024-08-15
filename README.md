@@ -9,7 +9,7 @@ It also takes into account the delay of the book by the reader. If more than 10 
 
 Running the application
 ========
-System requirments: you must have docker and docker compose installed on your computer.
+System requirments: you must have docker and docker compose installed on your computer, ports 5432 and 8080 must be expoded.
 
 Open Terminal.
 
