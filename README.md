@@ -11,7 +11,7 @@ The user's page shows the books he has borrowed. If a book was borrowed more tha
 
 Running the application
 ========
-System requirments: you must have docker and docker compose installed on your computer, ports 5432 and 8080 must be expoded.
+System requirments: you must have docker and docker compose installed on your computer, port 8080 must be expoded.
 
 Open Terminal.
 
