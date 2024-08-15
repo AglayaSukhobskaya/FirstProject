@@ -1,11 +1,13 @@
 Digital Library API
 ========
-Web-service that transfers the library to electronic accounting of books.
+A web application that simulates the work of an digital library.
 
-Librarians have the ability to register new readers, lend them books, and release books (after the reader returns the book back to the library). Also, librarians can add new books to the system, edit existing ones or delete them.
+The library contains a collection of books. You can get a list of all registered books or perform a simple CRUD operation with each of the books.
 
-Readers can access all available books sorted by release year. They can also search for the desired book by the initial letters of the book name.
-It also takes into account the delay of the book by the reader. If more than 10 days have passed since the book was accepted by the reader, it will automatically be highlighted in red on the user's page.
+Users are registered in the library. You can also add your own user, delete or edit an existing one.
+
+The page of a specific book contains information about whether this book is currently available or is taken by someone. If the book is available, you can assign it to one of the users.
+The user's page shows the books he has borrowed. If a book was borrowed more than 10 days ago, it will be highlighted in red.
 
 Running the application
 ========
@@ -23,7 +25,7 @@ Go to the project root directory 'digital_library'.
 
 Run the application with the following command:
 
-    sudo docker compose up -d
+    docker compose up -d
 
 Now the application is running.
 
